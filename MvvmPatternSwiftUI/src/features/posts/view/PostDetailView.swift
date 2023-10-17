@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HomeDetailView: View {
+struct PostDetailView: View {
     
     let post:Post;
     
@@ -16,12 +16,12 @@ struct HomeDetailView: View {
     }
     
     var body: some View {
-        CardView(post:post)
+        PostCardView(post:post)
     }
 }
 
-struct HomeDetailView_Previews: PreviewProvider {
+struct PostDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeDetailView(post :Post(userId: 4, id: 4, title: "grg", body: "grg"))
+        PostDetailView(post :Post(userId: 4, id: 4, title: "grg", body: "grg"))
     }
 }

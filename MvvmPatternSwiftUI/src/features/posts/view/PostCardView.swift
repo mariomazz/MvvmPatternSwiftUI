@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CardView: View {
+struct PostCardView: View {
     
     let post:Post
     
@@ -32,8 +32,8 @@ struct CardView: View {
     }
 }
 
-struct CardView_Previews: PreviewProvider {
+struct PostCardView_Previews: PreviewProvider {
     static var previews: some View {
-        CardView(post: Post(userId: 0, id: 43, title: "String", body: "String"))
+        PostCardView(post: Post(userId: 0, id: 43, title: "String", body: "String"))
     }
 }

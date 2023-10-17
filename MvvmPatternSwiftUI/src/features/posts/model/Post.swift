@@ -1,13 +1,13 @@
 //
 //  Post.swift
-//  MyFirstApp
+//  MvvmPatternSwiftUI
 //
-//  Created by Mario Mazzarelli on 06/03/22.
+//  Created by Mario Mazzarelli on 18/10/23.
 //
 
 import Foundation
 
-class Post :Codable,Identifiable{
+class Post : Codable,Identifiable{
     
     init(userId: Int, id: Int, title: String, body: String){
         self.userId = userId
@@ -22,6 +22,3 @@ class Post :Codable,Identifiable{
     let body : String
     
 }
-
-
-
