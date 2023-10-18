@@ -6,35 +6,40 @@
 //
 
 import Foundation
+import PromiseKit
 
-class PostsModel : ObservableObject {
-    @Published var posts :[Post] = []
+class PostsModel {
     
-    func loadPosts() ->Void{
-        
-        guard let url = URL(string: "\(Env.apiUrlJsonPlaceholder)posts") else {
-            return
-        }
-        
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            let fromServerPosts = try! JSONDecoder().decode([Post].self, from: data!)
-            DispatchQueue.main.async {
-                self.posts = fromServerPosts;
+    func loadPosts() -> Promise<[Post]>{
+        return Promise<[Post]>.init(resolver: { resolver in
+
+            guard let url = URL(string: "\(Env.apiUrlJsonPlaceholder)posts") else {
+                return resolver.reject(HttpError());
             }
-        }.resume();
+
+            URLSession.shared.dataTask(with: url) { data, response, error in
+                let fromServerPost = try! JSONDecoder().decode([Post].self, from: data!)
+                resolver.fulfill(fromServerPost)
+            }.resume();
+
+        });
+    }
         
+    func loadPost(postId:Int) -> Promise<Post>{
+        return Promise<Post>.init(resolver: { resolver in
+
+            guard let url = URL(string: "\(Env.apiUrlJsonPlaceholder)posts/\(postId)") else {
+                return resolver.reject(HttpError());
+            }
+
+            URLSession.shared.dataTask(with: url) { data, response, error in
+                let fromServerPost = try! JSONDecoder().decode(Post.self, from: data!)
+                resolver.fulfill(fromServerPost)
+            }.resume();
+
+        });
     }
     
-    /* func loadPosts()async throws -> [Post]{
-        let (data, _) = try await session.data(from: url)
-        let decoder = JSONDecoder()
-        return try decoder.decode([Item].self, from: data)
-    } */
-    
-    /*func loadItems(from url: URL) async throws -> [Item] {
-            let (data, _) = try await session.data(from: url)
-            let decoder = JSONDecoder()
-            return try decoder.decode([Item].self, from: data)
-        }*/
-    
 }
+
+

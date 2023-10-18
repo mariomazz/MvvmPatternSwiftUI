@@ -11,16 +11,16 @@ import UIKit
 
 class PostsViewModel: ObservableObject {
     private var postsModel =  PostsModel()
-        
+    @Published var posts : [Post] = []
     init(){
         
     }
     
-    func loadPosts(){
-        postsModel.loadPosts();
+    func loadPosts() {
+        postsModel.loadPosts().done { data in
+            self.posts = data
+        }.catch { error in
+            //…
+        }
     }
-    
-    var posts: [Post] {
-        return self.postsModel.posts;
-    };
 }

@@ -10,17 +10,17 @@ import SwiftUI
 struct PostsView: View {
     @ObservedObject var viewModel = PostsViewModel()
     init(){
-       
+        self.viewModel.loadPosts();
     }
     
     var body: some View {
         NavigationView {
             List(self.viewModel.posts) {
-                post in NavigationLink(destination: PostDetailView(post:post)){
+                post in NavigationLink(destination: PostDetailView(postId:post.id)){
                     (PostCardView(post:post))
                 }
             }.onAppear(){
-                self.viewModel.loadPosts();
+                // --
             }.refreshable {
                 self.viewModel.loadPosts();
             }.navigationTitle("Posts Page")

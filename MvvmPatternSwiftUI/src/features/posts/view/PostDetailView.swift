@@ -8,20 +8,35 @@
 import SwiftUI
 
 struct PostDetailView: View {
+    @ObservedObject var viewModel: PostViewModel;
+    let postId:Int;
     
-    let post:Post;
-    
-    init(post:Post){
-        self.post = post
+    init(postId:Int){
+        self.postId = postId;
+        self.viewModel = PostViewModel(postId: postId);
+        self.viewModel.loadPost()
     }
     
     var body: some View {
-        PostCardView(post:post)
+
+        return VStack { 
+            if viewModel.post != nil {
+                PostCardView(post:viewModel.post!).onAppear(){
+                        // ---
+                    }.refreshable {
+                        self.viewModel.loadPost();
+                    }.navigationTitle("Post Page \(postId)");
+            } else {
+                ProgressView().progressViewStyle(CircularProgressViewStyle())
+            }
+        }
+        
     }
+       
 }
 
 struct PostDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        PostDetailView(post :Post(userId: 4, id: 4, title: "grg", body: "grg"))
+        PostDetailView(postId: 0)
     }
 }
