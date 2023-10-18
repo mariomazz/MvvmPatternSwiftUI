@@ -10,9 +10,10 @@ import UIKit
 
 
 class PostsViewModel: ObservableObject {
-    @Published private var postsModel =  PostsModel()
+    private var postsModel =  PostsModel()
         
     init(){
+        
     }
     
     func loadPosts(){
@@ -20,6 +21,6 @@ class PostsViewModel: ObservableObject {
     }
     
     var posts: [Post] {
-        return postsModel.posts;
-    }
+        return self.postsModel.posts;
+    };
 }

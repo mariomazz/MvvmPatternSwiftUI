@@ -7,8 +7,8 @@
 
 import Foundation
 
-class PostsModel{
-    private(set) var posts :[Post] = []
+class PostsModel : ObservableObject {
+    @Published var posts :[Post] = []
     
     func loadPosts() ->Void{
         
