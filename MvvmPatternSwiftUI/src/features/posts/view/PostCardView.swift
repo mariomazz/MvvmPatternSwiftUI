@@ -9,9 +9,9 @@ import SwiftUI
 
 struct PostCardView: View {
     
-    let post:Post
+    let post:PostDto
     
-    init(post: Post){
+    init(post: PostDto){
         self.post = post
     }
     
@@ -34,6 +34,6 @@ struct PostCardView: View {
 
 struct PostCardView_Previews: PreviewProvider {
     static var previews: some View {
-        PostCardView(post: Post(userId: 0, id: 43, title: "String", body: "String"))
+        PostCardView(post: PostDto(userId: 0, id: 43, title: "String", body: "String"))
     }
 }

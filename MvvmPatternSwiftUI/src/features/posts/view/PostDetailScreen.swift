@@ -7,24 +7,23 @@
 
 import SwiftUI
 
-struct PostDetailView: View {
-    @ObservedObject var viewModel: PostViewModel;
+struct PostDetailScreen: View {
+    @ObservedObject var controller: PostDetailScreenController;
     let postId:Int;
     
     init(postId:Int){
         self.postId = postId;
-        self.viewModel = PostViewModel(postId: postId);
-        self.viewModel.loadPost()
+        self.controller = PostDetailScreenController(postId: postId);
     }
     
     var body: some View {
 
         return VStack { 
-            if viewModel.post != nil {
-                PostCardView(post:viewModel.post!).onAppear(){
+            if controller.post != nil {
+                PostCardView(post:controller.post!).onAppear(){
                         // ---
                     }.refreshable {
-                        self.viewModel.loadPost();
+                        self.controller.reloadPost();
                     }.navigationTitle("Post Page \(postId)");
             } else {
                 ProgressView().progressViewStyle(CircularProgressViewStyle())
@@ -37,6 +36,6 @@ struct PostDetailView: View {
 
 struct PostDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        PostDetailView(postId: 0)
+        PostDetailScreen(postId: 0)
     }
 }

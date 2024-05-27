@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Post : Codable,Identifiable{
+class PostDto : Codable,Identifiable{
     
     init(userId: Int, id: Int, title: String, body: String){
         self.userId = userId

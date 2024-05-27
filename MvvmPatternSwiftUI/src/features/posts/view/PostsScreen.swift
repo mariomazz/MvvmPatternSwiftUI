@@ -7,22 +7,22 @@
 
 import SwiftUI
 
-struct PostsView: View {
-    @ObservedObject var viewModel = PostsViewModel()
+struct PostsScreen: View {
+    @ObservedObject var controller = PostsScreenController()
     init(){
-        self.viewModel.loadPosts();
+        
     }
     
     var body: some View {
         NavigationView {
-            List(self.viewModel.posts) {
-                post in NavigationLink(destination: PostDetailView(postId:post.id)){
+            List(self.controller.posts) {
+                post in NavigationLink(destination: PostDetailScreen(postId:post.id)){
                     (PostCardView(post:post))
                 }
             }.onAppear(){
                 // --
             }.refreshable {
-                self.viewModel.loadPosts();
+                self.controller.reloadPosts()
             }.navigationTitle("Posts Page")
         }
     }
@@ -31,6 +31,6 @@ struct PostsView: View {
 
 struct PostsView_Previews: PreviewProvider {
     static var previews: some View {
-        PostsView()
+        PostsScreen()
     }
 }

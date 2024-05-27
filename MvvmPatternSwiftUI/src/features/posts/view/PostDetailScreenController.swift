@@ -9,19 +9,28 @@ import Foundation
 import UIKit
 
 
-class PostViewModel: ObservableObject {
-    private var postsModel =  PostsModel()
+class PostDetailScreenController: ObservableObject {
+    private var service =  PostsService()
     private let postId:Int;
-    @Published var post : Post?;
+    @Published var post : PostDto?;
     init(postId: Int){
         self.postId = postId;
+        self.loadPost();
     }
     
-    func loadPost() {
-        postsModel.loadPost(postId: postId).done { data in
+    
+    
+    private func loadPost() {
+        service.post(postId: postId).done { data in
             self.post = data
         }.catch { error in
             //…
         }
     }
+    
+    
+    func reloadPost(){
+        loadPost()
+    }
+    
 }
